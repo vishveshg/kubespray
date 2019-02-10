@@ -13,13 +13,13 @@ bin_dir: /usr/local/bin
 
 
 ## External LB example config
-## apiserver_loadbalancer_domain_name: "elb.some.domain"
-#loadbalancer_apiserver:
-#  address: 1.2.3.4
-#  port: 1234
+apiserver_loadbalancer_domain_name: "ec2-13-233-207-41.ap-south-1.compute.amazonaws.com"
+loadbalancer_apiserver:
+  address: 13.233.207.41
+  port: 8383
 
 ## Internal loadbalancers for apiservers
-#loadbalancer_apiserver_localhost: true
+loadbalancer_apiserver_localhost: false
 
 ## Local loadbalancer should use this port instead, if defined.
 ## Defaults to kube_apiserver_port (6443)
