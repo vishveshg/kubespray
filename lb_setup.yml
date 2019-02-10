@@ -1,0 +1,14 @@
+---
+- hosts: loadbalancer
+  become: true
+  tasks:
+    - name: 'Deploy nginx load balancer'
+      apt: name=nginx state=present cache_valid_time=24
+
+    - name: check nginx service
+      command: systemctl status nginx
+      register: nginx_status
+      failed_when: "'running' not in nginx_status.stdout_lines[2]"
+
+    - name: print output
+      debug: var=nginx_status.stdout_lines[2]
