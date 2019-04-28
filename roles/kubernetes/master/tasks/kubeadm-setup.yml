@@ -10,6 +10,17 @@
   import_tasks: kubeadm-migrate-certs.yml
   when: old_apiserver_cert.stat.exists
 
+- name: Install OIDC certificate
+  copy:
+    content: "{{ kube_oidc_ca_cert | b64decode }}"
+    dest: "{{ kube_oidc_ca_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - kube_oidc_auth
+    - kube_oidc_ca_cert is defined
+
 - name: kubeadm | Check serviceaccount key
   stat:
     path: "{{ kube_cert_dir }}/sa.key"
@@ -119,7 +130,6 @@
     - kubeadm_version is version('v1.14.0', '>=')
     - kubeadm_certificate_key is not defined
     - item | trim | match('.*--certificate-key .*')
-    - hostvars['kube-master'][0]['kubeadm_init']['stdout_lines'] is defined
 
 - name: Create hardcoded kubeadm token for joining nodes with 24h expiration (if defined)
   shell: >-

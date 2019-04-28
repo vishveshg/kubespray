@@ -49,6 +49,7 @@ calico_ctl_version: "v3.4.4"
 calico_cni_version: "v3.4.0"
 calico_policy_version: "v3.4.0"
 calico_rr_version: "v0.6.1"
+calico_typha_version: "v3.4.4"
 
 flannel_version: "v0.11.0"
 flannel_cni_version: "v0.3.0"
@@ -181,9 +182,11 @@ calico_policy_image_repo: "docker.io/calico/kube-controllers"
 calico_policy_image_tag: "{{ calico_policy_version }}"
 calico_rr_image_repo: "docker.io/calico/routereflector"
 calico_rr_image_tag: "{{ calico_rr_version }}"
+calico_typha_image_repo: "docker.io/calico/typha"
+calico_typha_image_tag: "{{ calico_typha_version }}"
 pod_infra_image_repo: "gcr.io/google_containers/pause-{{ image_arch }}"
 pod_infra_image_tag: "{{ pod_infra_version }}"
-install_socat_image_repo: "xueshanf/install-socat"
+install_socat_image_repo: "docker.io/xueshanf/install-socat"
 install_socat_image_tag: "latest"
 netcheck_version: "v1.0"
 netcheck_agent_image_repo: "quay.io/l23network/k8s-netchecker-agent"
@@ -194,32 +197,32 @@ weave_kube_image_repo: "docker.io/weaveworks/weave-kube"
 weave_kube_image_tag: "{{ weave_version }}"
 weave_npc_image_repo: "docker.io/weaveworks/weave-npc"
 weave_npc_image_tag: "{{ weave_version }}"
-contiv_image_repo: "contiv/netplugin"
+contiv_image_repo: "docker.io/contiv/netplugin"
 contiv_image_tag: "{{ contiv_version }}"
-contiv_init_image_repo: "contiv/netplugin-init"
+contiv_init_image_repo: "docker.io/contiv/netplugin-init"
 contiv_init_image_tag: "latest"
-contiv_auth_proxy_image_repo: "contiv/auth_proxy"
+contiv_auth_proxy_image_repo: "docker.io/contiv/auth_proxy"
 contiv_auth_proxy_image_tag: "{{ contiv_version }}"
-contiv_etcd_init_image_repo: "ferest/etcd-initer"
+contiv_etcd_init_image_repo: "docker.io/ferest/etcd-initer"
 contiv_etcd_init_image_tag: latest
-contiv_ovs_image_repo: "contiv/ovs"
+contiv_ovs_image_repo: "docker.io/contiv/ovs"
 contiv_ovs_image_tag: "latest"
 cilium_image_repo: "docker.io/cilium/cilium"
 cilium_image_tag: "{{ cilium_version }}"
 cilium_init_image_repo: "docker.io/library/busybox"
 cilium_init_image_tag: "1.28.4"
-kube_router_image_repo: "cloudnativelabs/kube-router"
+kube_router_image_repo: "docker.io/cloudnativelabs/kube-router"
 kube_router_image_tag: "{{ kube_router_version }}"
 multus_image_repo: "docker.io/nfvpe/multus"
 multus_image_tag: "{{ multus_version }}"
-nginx_image_repo: nginx
+nginx_image_repo: docker.io/nginx
 nginx_image_tag: 1.15
 
-haproxy_image_repo: haproxy
+haproxy_image_repo: docker.io/haproxy
 haproxy_image_tag: 1.9
 
 coredns_version: "1.5.0"
-coredns_image_repo: "coredns/coredns"
+coredns_image_repo: "docker.io/coredns/coredns"
 coredns_image_tag: "{{ coredns_version }}"
 
 nodelocaldns_version: "1.15.1"
@@ -229,22 +232,22 @@ nodelocaldns_image_tag: "{{ nodelocaldns_version }}"
 dnsautoscaler_version: 1.4.0
 dnsautoscaler_image_repo: "k8s.gcr.io/cluster-proportional-autoscaler-{{ image_arch }}"
 dnsautoscaler_image_tag: "{{ dnsautoscaler_version }}"
-test_image_repo: busybox
+test_image_repo: docker.io/busybox
 test_image_tag: latest
-busybox_image_repo: busybox
+busybox_image_repo: docker.io/busybox
 busybox_image_tag: 1.29.2
 helm_version: "v2.13.1"
-helm_image_repo: "lachlanevenson/k8s-helm"
+helm_image_repo: "docker.io/lachlanevenson/k8s-helm"
 helm_image_tag: "{{ helm_version }}"
 tiller_image_repo: "gcr.io/kubernetes-helm/tiller"
 tiller_image_tag: "{{ helm_version }}"
 
-registry_image_repo: "registry"
+registry_image_repo: "docker.io/registry"
 registry_image_tag: "2.6"
 registry_proxy_image_repo: "gcr.io/google_containers/kube-registry-proxy"
 registry_proxy_image_tag: "0.4"
-metrics_server_version: "v0.3.1"
-metrics_server_image_repo: "k8s.gcr.io/metrics-server-amd64"
+metrics_server_version: "v0.3.2"
+metrics_server_image_repo: "gcr.io/google_containers/metrics-server-amd64"
 metrics_server_image_tag: "{{ metrics_server_version }}"
 local_volume_provisioner_image_repo: "quay.io/external_storage/local-volume-provisioner"
 local_volume_provisioner_image_tag: "v2.1.0"
@@ -252,7 +255,7 @@ cephfs_provisioner_image_repo: "quay.io/external_storage/cephfs-provisioner"
 cephfs_provisioner_image_tag: "v2.1.0-k8s1.11"
 rbd_provisioner_image_repo: "quay.io/external_storage/rbd-provisioner"
 rbd_provisioner_image_tag: "v2.1.1-k8s1.11"
-local_path_provisioner_image_repo: "rancher/local-path-provisioner"
+local_path_provisioner_image_repo: "docker.io/rancher/local-path-provisioner"
 local_path_provisioner_image_tag: "v0.0.2"
 ingress_nginx_controller_image_repo: "quay.io/kubernetes-ingress-controller/nginx-ingress-controller"
 ingress_nginx_controller_image_tag: "0.21.0"
@@ -434,6 +437,15 @@ downloads:
     groups:
       - calico-rr
 
+  calico_typha:
+    enabled: "{{ typha_enabled == 'calico' }}"
+    container: true
+    repo: "{{ calico_typha_image_repo }}"
+    tag: "{{ calico_typha_image_tag }}"
+    sha256: "{{ calico_typha_digest_checksum|default(None) }}"
+    groups:
+      - k8s-cluster
+
   weave_kube:
     enabled: "{{ kube_network_plugin == 'weave' }}"
     container: true
@@ -531,7 +543,7 @@ downloads:
     tag: "{{ coredns_image_tag }}"
     sha256: "{{ coredns_digest_checksum|default(None) }}"
     groups:
-      - kube-node
+      - kube-master
 
   nodelocaldns:
     enabled: "{{ enable_nodelocaldns }}"
@@ -540,7 +552,7 @@ downloads:
     tag: "{{ nodelocaldns_image_tag }}"
     sha256: "{{ nodelocaldns_digest_checksum|default(None) }}"
     groups:
-      - kube-node
+      - k8s-cluster
 
   dnsautoscaler:
     enabled: "{{ dns_mode in ['coredns', 'coredns_dual'] }}"
@@ -549,7 +561,7 @@ downloads:
     tag: "{{ dnsautoscaler_image_tag }}"
     sha256: "{{ dnsautoscaler_digest_checksum|default(None) }}"
     groups:
-      - kube-node
+      - kube-master
 
   busybox:
     enabled: "{{ kube_network_plugin in ['kube-router'] }}"
